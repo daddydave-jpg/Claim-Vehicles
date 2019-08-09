@@ -16,19 +16,26 @@ _object = typeOf _object;
 
 try
 {
+    if(ExilePlayerInSafezone)then
+    {
+    	throw "You cannot do that in traders";
+	};
+	if(ExileClientPlayerIsInCombat)then
+	{
+		throw "You cannot do that whilst in combat";
+	};
+	if !("Exile_Item_Codelock" in (player call ExileClient_util_playerCargo_list)) then
+    {
+        throw "You need a codelock to do that!";
+    };
     if !(local _vehicleObj) then
     {
         throw "Get in the drivers seat first";
     };
     if !(_object isKindOf "AIR" || _object isKindOf "CAR" || _object isKindOf "TANK") then
     {
-        throw "That's not a Vehicle... derp!";
+        throw "You cannot claim this";
     };
-    if !("Exile_Item_Codelock" in (player call ExileClient_util_playerCargo_list)) then
-    {
-        throw "You need a codelock to do that!";
-    };
-
     _pincode = 4 call ExileClient_gui_keypadDialog_show;
 
     if !(count _pinCode == 4) then
